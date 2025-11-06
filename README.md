@@ -1,0 +1,70 @@
+# Нейросеть для автодополнения текстов
+
+Проект по сравнению LSTM модели и предобученного трансформера DistilGPT2 для задачи автодополнения текстов на датасете Sentiment140.
+
+## Описание проекта
+
+Цель проекта - создать и сравнить две модели для генерации продолжений текста:
+1. **LSTM модель** - обученная с нуля рекуррентная нейронная сеть
+2. **DistilGPT2** - предобученная трансформерная модель
+
+Модели оцениваются по метрикам ROUGE-1, ROUGE-2, ROUGE-L и перплексии.
+
+## Структура проекта
+
+```
+project/
+├── data/                         # Данные
+│   ├── raw_dataset.txt           # Исходный датасет
+│   ├── dataset_processed.json    # Обработанные данные
+│   ├── train.json                # Обучающая выборка
+│   ├── val.json                  # Валидационная выборка
+│   └── test.json                 # Тестовая выборка
+│
+├── configs/                      # Конфигурации
+│   └── config.yaml               # Основная конфигурация
+│
+├── src/                         # Исходный код
+│   ├── data_utils.py            # Загрузка и предобработка данных
+│   ├── next_token_dataset.py    # PyTorch Dataset
+│   ├── lstm_model.py            # LSTM модель
+│   ├── lstm_train.py            # Обучение LSTM
+│   ├── eval_lstm.py             # Оценка LSTM
+│   ├── distil_gpt2_model.py     # DistilGPT2 модель
+│   └── eval_transformer_pipeline.py  # Оценка трансформера
+│
+├── models/                      # Сохраненные модели
+│   ├── best_model.pt            # Лучшая модель
+│   ├── model_epoch_*.pt         # Чекпоинты эпох
+│   └── training_curves.png      # График обучения
+
+├── solution.ipynb                # Основной ноутбук
+├── requirements.txt              # Зависимости
+└── README.md                     # Этот файл
+```
+
+
+### Установка зависимостей
+
+```bash
+# Создание виртуального окружения
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# или
+.venv\Scripts\activate  # Windows
+
+# Установка зависимостей
+pip install -r requirements.txt
+```
+
+## Результаты
+
+| Модель | ROUGE-1 | ROUGE-2 | ROUGE-L |
+|--------|---------|---------|---------|
+| LSTM   | 0.XXX   | 0.XXX   | 0.XXX   |
+| DistilGPT2 | 0.XXX | 0.XXX | 0.XXX |
+
+### Выводы
+
+
+

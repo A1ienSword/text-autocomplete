@@ -1,0 +1,29 @@
+data:
+  path:
+    raw: "./data/raw_dataset.txt"
+    processed: "./data/dataset_processed.json"
+    train: "./data/train.json"
+    val: "./data/val.json"
+    test: "./data/test.json"
+  val_size: 0.2
+  test_size: 0.5
+  random_state: 64
+
+training:
+  save_dir: "./models"       
+  epochs: 10                 
+  batch_size: 64             
+  optimizer:
+    lr: 0.001                
+    weight_decay: 0.00001    
+  early_stopping:
+    patience: 5 
+                 
+model:
+  embed_dim: 256             
+  hidden_dim: 256            
+  num_layers: 3              
+  dropout: 0.2               
+  embed_dropout: 0.1         
+  bidirectional: false      
+  use_layer_norm: false      
