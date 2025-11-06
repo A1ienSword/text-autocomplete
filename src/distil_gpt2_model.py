@@ -4,7 +4,7 @@
 import logging
 import torch
 from typing import Dict, List, Optional
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 from tqdm import tqdm
 import evaluate
 
@@ -16,6 +16,11 @@ class DistilGPT2:
         self.device = device
         logger.info("Загрузка предобученной модели distilgpt2...")
         try:
+            self.generator = pipeline(
+              "text-generation", 
+              model="distilgpt2", 
+              device=0 if device == "cuda" else -1
+              )
             self.tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
             self.model = AutoModelForCausalLM.from_pretrained("distilgpt2")
             if self.tokenizer.pad_token is None:
@@ -39,12 +44,6 @@ class DistilGPT2:
         num_return_sequences: int = 1
     ) -> str:
         try:
-            inputs = self.tokenizer(
-                text,
-                return_tensors="pt",
-                truncation=True,
-                max_length=512
-            ).to(self.device)
             generation_kwargs = {
                 "max_new_tokens": max_new_tokens,
                 "do_sample": do_sample,
@@ -60,15 +59,9 @@ class DistilGPT2:
                     "top_p": top_p
                 })
 
-            with torch.no_grad():
-                outputs = self.model.generate(**inputs, **generation_kwargs)
+            result = self.generator(text, **generation_kwargs)
 
-            generated_text = self.tokenizer.decode(
-                outputs[0],
-                skip_special_tokens=True
-            )
-
-            return generated_text
+            return result[0]["generated_text"]
 
         except Exception as e:
             logger.error(f"Ошибка генерации текста: {e}")
