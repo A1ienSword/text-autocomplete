@@ -1,6 +1,6 @@
 data:
   path:
-    raw: "./data/raw_dataset.txt"
+    raw: "./data/tweets.txt"
     processed: "./data/dataset_processed.json"
     train: "./data/train.json"
     val: "./data/val.json"
