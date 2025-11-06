@@ -58,6 +58,7 @@ pip install -r requirements.txt
 ```
 
 ## Результаты
+LSTM модель обучена на 3 эпохах в Google Collab
 
 | Модель | ROUGE-1 | ROUGE-2 | ROUGE-L |
 |--------|---------|---------|---------|
